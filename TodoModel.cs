@@ -21,6 +21,23 @@ namespace TodoList
         [XmlIgnore] 
         public DateOnly Date { get; set; }
 
+        public bool Done { get; set; }
+
+        public TodoModel(string title, DateOnly Date, bool done)
+        {
+            Title = title;
+            this.Date = Date;
+            Done = done;
+        }
+
+        public TodoModel(int id, string title, DateOnly Date, bool done)
+        {
+            Id = id;
+            Title = title;
+            this.Date = Date;
+            Done = done;
+        }
+
         public TodoModel()
         {
 
