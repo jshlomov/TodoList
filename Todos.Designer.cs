@@ -35,6 +35,7 @@
             checkbox_isDone = new ReaLTaiizor.Controls.MaterialCheckBox();
             dataGridView_tasks = new DataGridView();
             button_action = new ReaLTaiizor.Controls.MaterialButton();
+            button_Cancel = new ReaLTaiizor.Controls.MaterialButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView_tasks).BeginInit();
             SuspendLayout();
             // 
@@ -147,7 +148,7 @@
             dataGridView_tasks.Location = new Point(412, 128);
             dataGridView_tasks.Name = "dataGridView_tasks";
             dataGridView_tasks.RowHeadersWidth = 51;
-            dataGridView_tasks.Size = new Size(340, 460);
+            dataGridView_tasks.Size = new Size(525, 460);
             dataGridView_tasks.TabIndex = 6;
             dataGridView_tasks.CellContentClick += dataGridView_tasks_CellContentClick;
             // 
@@ -159,12 +160,12 @@
             button_action.HighEmphasis = true;
             button_action.Icon = null;
             button_action.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            button_action.Location = new Point(196, 552);
+            button_action.Location = new Point(255, 551);
             button_action.Margin = new Padding(4, 6, 4, 6);
             button_action.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             button_action.Name = "button_action";
             button_action.NoAccentTextColor = Color.Empty;
-            button_action.Size = new Size(139, 36);
+            button_action.Size = new Size(85, 36);
             button_action.TabIndex = 7;
             button_action.Text = "ADD|EDIT";
             button_action.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
@@ -172,11 +173,33 @@
             button_action.UseVisualStyleBackColor = true;
             button_action.Click += button_action_Click;
             // 
+            // button_Cancel
+            // 
+            button_Cancel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            button_Cancel.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            button_Cancel.Depth = 0;
+            button_Cancel.HighEmphasis = true;
+            button_Cancel.Icon = null;
+            button_Cancel.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            button_Cancel.Location = new Point(162, 552);
+            button_Cancel.Margin = new Padding(4, 6, 4, 6);
+            button_Cancel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            button_Cancel.Name = "button_Cancel";
+            button_Cancel.NoAccentTextColor = Color.Empty;
+            button_Cancel.Size = new Size(85, 36);
+            button_Cancel.TabIndex = 8;
+            button_Cancel.Text = "Cancel";
+            button_Cancel.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            button_Cancel.UseAccentColor = false;
+            button_Cancel.UseVisualStyleBackColor = true;
+            button_Cancel.Click += button_Cancel_Click;
+            // 
             // Todos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(976, 728);
+            Controls.Add(button_Cancel);
             Controls.Add(button_action);
             Controls.Add(dataGridView_tasks);
             Controls.Add(checkbox_isDone);
@@ -200,5 +223,7 @@
         private ReaLTaiizor.Controls.MaterialCheckBox checkbox_isDone;
         private DataGridView dataGridView_tasks;
         private ReaLTaiizor.Controls.MaterialButton button_action;
+        private Button button_cancel;
+        private ReaLTaiizor.Controls.MaterialButton button_Cancel;
     }
 }

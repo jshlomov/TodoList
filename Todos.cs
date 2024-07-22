@@ -39,7 +39,7 @@ namespace TodoList
             {
                 selectedID = (int)row.Cells[0].Value;
                 textbox_title.Text = row.Cells[1].Value.ToString();
-                hopeDatePicker1.Date = DateTime.Parse(row.Cells [2].Value.ToString());
+                hopeDatePicker1.Date = DateTime.Parse(row.Cells[2].Value.ToString());
                 checkbox_isDone.Checked = (bool)row.Cells[4].Value;
             }
             SetMode(Mode.Edit);
@@ -62,6 +62,11 @@ namespace TodoList
         // add or edit based on mode
         private void button_action_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textbox_title.Text))
+            {
+                MessageBox.Show("Enter Title");
+                return;
+            }
             if (mode == Mode.Edit)
             {
                 //TodoModel selectedItem = repository.GetById("Id");
@@ -83,6 +88,19 @@ namespace TodoList
                 DateOnly.FromDateTime(hopeDatePicker1.Date),
                 checkbox_isDone.Checked
                 );
+        }
+
+        private void button_Cancel_Click(object sender, EventArgs e)
+        {
+            CleanAll();
+        }
+
+        private void CleanAll()
+        {
+            textbox_title.Text = string.Empty;
+            checkbox_isDone.Checked = false;
+            hopeDatePicker1.Date = DateTime.Now;
+            SetMode(Mode.Add);
         }
     }
 }
