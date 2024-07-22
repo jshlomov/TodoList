@@ -1,4 +1,6 @@
 ﻿using ReaLTaiizor.Forms;
+using System.Globalization;
+using System.Windows.Forms;
 
 namespace TodoList
 {
@@ -7,26 +9,40 @@ namespace TodoList
         Add,
         Edit
     }
+
     internal partial class Todos : MaterialForm
     {
         private List<TodoModel> todos;
         private Mode mode;
         private IRepository<TodoModel> repository;
+        int selectedID = 0;
 
         public Todos(IRepository<TodoModel> repository)
         {
             InitializeComponent();
-            todos = new List<TodoModel>();
-            dataGridView_tasks.DataSource = todos;
             this.repository = repository;
+            Load();
         }
-
+        public void Load()
+        {
+            SetMode(Mode.Add);
+            todos = repository.GetAll();
+            dataGridView_tasks.DataSource = todos;
+        }
         private void populateViewWithTodo() { }
 
         // populate form from selected row
         private void dataGridView_tasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            DataGridViewRow row = dataGridView_tasks.Rows[e.RowIndex];
+            if (row != null)
+            {
+                selectedID = (int)row.Cells[0].Value;
+                textbox_title.Text = row.Cells[1].Value.ToString();
+                hopeDatePicker1.Date = DateTime.Parse(row.Cells [2].Value.ToString());
+                checkbox_isDone.Checked = (bool)row.Cells[4].Value;
+            }
+            SetMode(Mode.Edit);
         }
 
         private void SetMode(Mode mode)
@@ -46,7 +62,27 @@ namespace TodoList
         // add or edit based on mode
         private void button_action_Click(object sender, EventArgs e)
         {
+            if (mode == Mode.Edit)
+            {
+                //TodoModel selectedItem = repository.GetById("Id");
+                repository.Update(SelectedItem());
+                Load();
+            }
+            else
+            {
+                repository.Add(SelectedItem());
+                Load();
+            }
+        }
 
+        private TodoModel SelectedItem()
+        {
+            return new TodoModel(
+                selectedID,
+                textbox_title.Text.ToString(),
+                DateOnly.FromDateTime(hopeDatePicker1.Date),
+                checkbox_isDone.Checked
+                );
         }
     }
 }

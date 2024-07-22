@@ -86,7 +86,7 @@ namespace TodoList.Repositories
         {
             int id = todo.Id;
             var element = document.Root.Elements("Todo")
-                                .FirstOrDefault(e => (int)e.Element("Id") == id);
+                                .FirstOrDefault(e => int.Parse(e.Element("Id").Value) == id);
             element.Element("Title").Value = todo.Title;
             element.Element("Date").Value = todo.Date.ToString();
             element.Element("Done").Value = todo.Done.ToString();
