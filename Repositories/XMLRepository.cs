@@ -24,14 +24,9 @@ namespace TodoList.Repositories
 
         public TodoModel Add(TodoModel todo)
         {
-            XElement root = document.Element("Root");
-            XElement runIdElement = root.Element("RunID");
-            int runId = int.Parse(runIdElement.Value);
-            runId++; // Increment the RunID
-            runIdElement.Value = runId.ToString();
-            todo.Id = runId;
-            root.Add(ToXml(todo));
-            root.Save(path);
+            todo.Id = GetRunID();
+            document.Root.Add(ToXml(todo));
+            document.Root.Save(path);
             return todo;
         }
 
@@ -53,7 +48,6 @@ namespace TodoList.Repositories
 
         public List<TodoModel> GetAll()
         {
-            document = XDocument.Load(path);
             var todos = document.Root.Elements("Todo")
                         .Select(e => new TodoModel
                         {
@@ -86,11 +80,12 @@ namespace TodoList.Repositories
         {
             int id = todo.Id;
             var element = document.Root.Elements("Todo")
-                                .FirstOrDefault(e => int.Parse(e.Element("Id").Value) == id);
+                                .FirstOrDefault(e => int.Parse(e.Element("ID").Value) == id);
             element.Element("Title").Value = todo.Title;
             element.Element("Date").Value = todo.Date.ToString();
             element.Element("Done").Value = todo.Done.ToString();
-            element.Save(path);
+            //element.Save(path);
+            document.Root.Save(path);
             return todo;
         }
 
@@ -102,6 +97,15 @@ namespace TodoList.Repositories
                 new XElement("Date", todo.XmlDate),
                 new XElement("Done", todo.Done)
             );
+        }
+
+        private int GetRunID()
+        {
+            XElement RunId = document.Root.Element("RunID");
+            int runID = int.Parse(RunId.Value);
+            RunId.Value = $"{runID + 1}";
+            RunId.Save(path);
+            return runID;
         }
     }
 }
