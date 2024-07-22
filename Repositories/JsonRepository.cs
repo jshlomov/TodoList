@@ -27,9 +27,7 @@ namespace TodoList.Repositories
         {
             if (!File.Exists(file))
             {
-                string initString = JsonConvert.SerializeObject(
-                    new JsonModel(0, []),
-                    Formatting.Indented);
+                string initString = JsonConvert.SerializeObject(new JsonModel(0, []));
                 File.WriteAllText(file, initString);
             }
             FilePath = file;
@@ -41,7 +39,7 @@ namespace TodoList.Repositories
             JsonModel json = GetJsonModel();
             todo.Id = json.RunID++;
             json.Todos.Add(todo);
-            string jsonString = JsonConvert.SerializeObject(json, Formatting.Indented);
+            string jsonString = JsonConvert.SerializeObject(json);
             File.WriteAllText(FilePath, jsonString);
             return todo;
         }
@@ -51,7 +49,7 @@ namespace TodoList.Repositories
             JsonModel json = GetJsonModel();
             TodoModel todo1 = json.Todos.FirstOrDefault(e => e.Id == id);
             json.Todos.Remove(todo1);
-            string jsonString = JsonConvert.SerializeObject(json, Formatting.Indented);
+            string jsonString = JsonConvert.SerializeObject(json);
             File.WriteAllText(FilePath, jsonString);
         }
 
@@ -77,15 +75,14 @@ namespace TodoList.Repositories
         public TodoModel Update(TodoModel todo)
         {
             JsonModel json = GetJsonModel();
-            TodoModel todo1 = json.Todos.FirstOrDefault(e => e.Id == todo.Id);
-            json.Todos.Remove(todo1);
-            todo1.Title = todo.Title;
-            todo1.Done = todo.Done;
-            todo1.Date = todo.Date;
-            json.Todos.Add(todo1);
-            string jsonString = JsonConvert.SerializeObject(json, Formatting.Indented);
+            int todoIndex = json.Todos.FindIndex(e => e.Id == todo.Id);
+            json.Todos[todoIndex].Title = todo.Title;
+            json.Todos[todoIndex].Done = todo.Done;
+            json.Todos[todoIndex].Date = todo.Date;
+            string jsonString = JsonConvert.SerializeObject(json);
             File.WriteAllText(FilePath, jsonString);
-            return todo1;
+            return json.Todos[todoIndex];
+            ;
 
         }
 

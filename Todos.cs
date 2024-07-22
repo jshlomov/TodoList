@@ -39,7 +39,7 @@ namespace TodoList
             {
                 selectedID = (int)row.Cells[0].Value;
                 textbox_title.Text = row.Cells[1].Value.ToString();
-                hopeDatePicker1.Date = DateTime.Parse(row.Cells[2].Value.ToString());
+                hopeDatePicker1.Date = DateTime.Parse(row.Cells[2].Value.ToString()!);
                 checkbox_isDone.Checked = (bool)row.Cells[4].Value;
             }
             SetMode(Mode.Edit);
