@@ -150,7 +150,7 @@
             dataGridView_tasks.RowHeadersWidth = 51;
             dataGridView_tasks.Size = new Size(525, 460);
             dataGridView_tasks.TabIndex = 6;
-            dataGridView_tasks.CellContentClick += dataGridView_tasks_CellContentClick;
+            dataGridView_tasks.CellClick += dataGridView_tasks_CellClick;
             // 
             // button_action
             // 

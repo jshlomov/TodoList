@@ -3,6 +3,17 @@ namespace TodoList.Repositories
 {
     internal class CSVRepository : IRepository<TodoModel>
     {
+        string path;
+
+        public CSVRepository(string path)
+        {
+            if(!File.Exists(path))
+            {
+
+            }
+            this.path = path;
+        }
+
         public TodoModel Add(TodoModel todo)
         {
             throw new NotImplementedException();

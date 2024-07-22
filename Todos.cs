@@ -32,7 +32,7 @@ namespace TodoList
         private void populateViewWithTodo() { }
 
         // populate form from selected row
-        private void dataGridView_tasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView_tasks_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow row = dataGridView_tasks.Rows[e.RowIndex];
             if (row != null)

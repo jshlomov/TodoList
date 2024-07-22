@@ -32,7 +32,6 @@ namespace TodoList.Repositories
 
         public void DeleteById(int id)
         {
-            document = XDocument.Load(path);
             var element = document.Root.Elements("Todo")
                                 .FirstOrDefault(e => (int)e.Element("Id") == id);
             if (element != null)
