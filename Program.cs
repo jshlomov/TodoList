@@ -14,7 +14,7 @@ namespace TodoList
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new Todos(new XMLRepository("data.xml")));
+            Application.Run(new Todos(new JsonRepository("data.json")));
         }
     }
 }
